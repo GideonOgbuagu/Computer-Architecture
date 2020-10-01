@@ -8,6 +8,9 @@ class CPU:
     def __init__(self):
         """Construct a new CPU."""
         pass
+        self.pc = 0
+        self.reg = [0] * 8
+        self.ram = [0] * 8
 
     def load(self):
         """Load a program into memory."""
@@ -15,6 +18,7 @@ class CPU:
         address = 0
 
         # For now, we've just hardcoded a program:
+
 
         program = [
             # From print8.ls8
@@ -39,6 +43,12 @@ class CPU:
         #elif op == "SUB": etc
         else:
             raise Exception("Unsupported ALU operation")
+        
+    def ram_read(self, prop_pc):
+        pass
+
+    def ram_write(self, prop_pc):
+        pass
 
     def trace(self):
         """
