@@ -4,6 +4,7 @@ import sys
 
 HLT = 0b00000001 
 LDI = 0b10000010
+PRN = 0b01000111
 
 class CPU:
     """Main CPU class."""
@@ -95,6 +96,11 @@ class CPU:
             if IR == HLT:
                 running = False
             
-            # elif IR == LDI:
+            elif IR == LDI:
+                self.registers[operand_a] = operand_b
+
+            elif IR == PRN:
+                print(self.registers[operand_a])
+
                 
 
