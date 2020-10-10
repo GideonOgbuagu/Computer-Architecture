@@ -21,7 +21,12 @@ class CPU:
 
         self.pc = 0
 
-        
+        self.branchtable = {
+            HLT: self.hlt,
+            LDI: self.ldi,
+            PRN: self.prn,
+
+        }
         
 
     def load(self):
@@ -71,30 +76,10 @@ class CPU:
         else:
             raise Exception("Unsupported ALU operation")
 
-    # def trace(self):
-    #     """
-    #     Handy function to print out the CPU state. You might want to call this
-    #     from run() if you need help debugging.
-    #     """
-
-    #     print(f"TRACE: %02X | %02X %02X %02X |" % (
-    #         self.pc,
-    #         #self.fl,
-    #         #self.ie,
-    #         self.ram_read(self.pc),
-    #         self.ram_read(self.pc + 1),
-    #         self.ram_read(self.pc + 2)
-    #     ), end='')
-
-    #     for i in range(8):
-    #         print(" %02X" % self.reg[i], end='')
-
-    #     print()
-
     def run(self):
         """Run the CPU."""
-        running = True
-        while running:
+        self.running = True
+        while self.running:
             IR = self.ram_read(self.pc)
             operand_a = self.ram_read(self.pc + 1)
             operand_b = self.ram_read(self.pc + 2)
@@ -107,14 +92,17 @@ class CPU:
             if is_alu_op:
                 self.alu(IR, operand_a, operand_b)
             
-            elif IR == HLT:
-                running = False
-            
-            elif IR == LDI:
-                self.registers[operand_a] = operand_b
+            else:
+                self.branchtable[IR](operand_a, operand_b)
 
-            elif IR == PRN:
-                print(self.registers[operand_a])
+    def hlt(self, operand_a, operand_b):
+        self.running = False
 
+    def ldi(self, operand_a, operand_b):
+        self.registers[operand_a] = operand_b
+
+    def prn(self, operand_a, operand_b):
+        print(self.registers[operand_a])
+        
                 
 
