@@ -74,8 +74,8 @@ class CPU:
         if op == MUL:
             self.registers[reg_a] *= self.registers[reg_b]
         #elif op == "SUB": etc
-        elif op == CMP:
-            pass
+        # elif op == CMP:
+            
 
         else:
             raise Exception("Unsupported ALU operation")
