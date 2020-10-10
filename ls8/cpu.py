@@ -6,6 +6,7 @@ HLT = 0b00000001
 LDI = 0b10000010
 PRN = 0b01000111
 MUL = 0b10100010
+CMP = 0b10100111
 
 class CPU:
     """Main CPU class."""
@@ -73,6 +74,9 @@ class CPU:
         if op == MUL:
             self.registers[reg_a] *= self.registers[reg_b]
         #elif op == "SUB": etc
+        elif op == CMP:
+            pass
+
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -106,3 +110,11 @@ class CPU:
         
                 
 
+# Minimum Viable Product
+# Your finished project must include all of the following requirements:
+
+#  Add the CMP instruction and equal flag to your LS-8.
+
+#  Add the JMP instruction.
+
+#  Add the JEQ and JNE instructions.
